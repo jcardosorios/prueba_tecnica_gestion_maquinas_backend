@@ -20,12 +20,15 @@ class MaquinaController extends Controller
      */
     public function store(Request $request)
     {
+        // Validacion
         $validateData = $request->validate([
             'nombre' => 'required|string|max:255',
             'coeficiente' => 'required|numeric|min:1|max:3'
         ]);
 
         $maquina = Maquina::create($validateData);
+
+        // Creacion
         return response()->json($maquina, 201);
     }
 
