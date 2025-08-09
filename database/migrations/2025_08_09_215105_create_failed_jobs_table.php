@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('produccion', function (Blueprint $table) {
+        Schema::create('failed_jobs', function (Blueprint $table) {
             $table->id();
-            $table->decimal('tiempo_produccion',5,2);
-            $table->decimal('tiempo_inactividad',5,2);
-            $table->dateTime('fecha_hora_inicio_inactividad',5,2);
-            $table->dateTime('fecha_hora_termino_inactividad',5,2);
-            $table->timestamps();
+            $table->string('uuid')->unique();
+            $table->text('connection');
+            $table->text('queue');
+            $table->longText('payload');
+            $table->longText('exception');
+            $table->timestamp('failed_at')->useCurrent();
         });
     }
 
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('produccion');
+        Schema::dropIfExists('failed_jobs');
     }
 };

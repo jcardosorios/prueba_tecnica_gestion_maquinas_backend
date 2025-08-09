@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('tareas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_produccion')->nullable()->constrained('produccion');
+            $table->foreignId('id_produccion')->nullable()->constrained('produccions');
             $table->foreignId('id_maquina')->constrained('maquinas');
             $table->dateTime('fecha_hora_inicio');
             $table->dateTime('fecha_hora_termino')->nullable();
