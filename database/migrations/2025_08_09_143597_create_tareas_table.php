@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('tareas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_produccion')->nullable()->constrained('produccion');
-            $table->foreignId('id_maquina')->nullable()->constrained('maquinas');
+            $table->foreignId('id_maquina')->constrained('maquinas');
             $table->dateTime('fecha_hora_inicio');
-            $table->dateTime('fecha_hora_termino');
-            $table->decimal('tiempo_empleado',4,2);
-            $table->decimal('tiempo_produccion',4,2);
+            $table->dateTime('fecha_hora_termino')->nullable();
+            $table->decimal('tiempo_empleado',4,2)->nullable();
+            $table->decimal('tiempo_produccion',4,2)->nullable();
             $table->enum('estado', ['PENDIENTE', 'COMPLETADA'])->DEFAULT('PENDIENTE');
             $table->timestamps();
         });
