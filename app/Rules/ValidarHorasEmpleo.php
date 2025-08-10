@@ -8,8 +8,6 @@ use Carbon\Carbon;
 
 class ValidarHorasEmpleo implements ValidationRule
 {
-    private $tiempoEmpleado = 0;
-
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         if ($value === null) {
@@ -21,15 +19,11 @@ class ValidarHorasEmpleo implements ValidationRule
         $inicio = Carbon::parse($fechaInicio);
         $termino = Carbon::parse($value);
 
-        $this->tiempoEmpleado = $inicio-> diffInMinutes($termino)/60;
+        $tiempoEmpleado = $inicio-> diffInMinutes($termino)/60;
 
-        if ($this->tiempoEmpleado < 5 || $this->tiempoEmpleado > 120){
+        if ($tiempoEmpleado < 5 || $tiempoEmpleado > 120){
             $fail('El tiempo empleado debe estar entre 5 y 120 horas');
         }
     }
 
-    public function getTiempoEmpleado()
-    {
-        return $this->tiempoEmpleado;
-    }
 }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Rules\ValidarHorasEmpleo;
+use App\Rules\TareaAnteriorFinalizada;
+use App\Jobs\GenerarProduccionDeTareas;
 use App\Models\Tarea;
 use App\Models\Maquina;
 use App\Models\Produccion;
@@ -23,18 +25,17 @@ class TareaController extends Controller
      */
     public function store(Request $request)
     {
-        $horasEmpleoValidas = new ValidarHorasEmpleo;
         
         // Validación
         $validatedData = $request->validate([
-            'id_maquina' => 'required|exists:maquinas,id',
+            'id_maquina' => ['required', 'exists:maquinas,id', new TareaAnteriorFinalizada],
             'fecha_hora_inicio' => 'required|date',
             'fecha_hora_termino' => [
                 'nullable',
                 'date',
                 'after_or_equal:fecha_hora_inicio',
                 'before:now',
-                $horasEmpleoValidas
+                new ValidarHorasEmpleo
             ],
         ]);
 
@@ -50,22 +51,11 @@ class TareaController extends Controller
             'updated_at' => now()
         ];
 
-
-        // Verificacion y modificacion en caso de existir hora de termino
-        if(isset($validatedData['fecha_hora_termino']))
-        {
-            // Calculo de tiemplo_empleado y tiempo_produccion
-            $tiempo_empleado = $horasEmpleoValidas->getTiempoEmpleado();
-            $maquina = Maquina::findOrFail($validatedData['id_maquina']);
-            $tiempo_produccion = $tiempo_empleado * $maquina->coeficiente;
-
-            $data['tiempo_empleado'] = $tiempo_empleado;
-            $data['tiempo_produccion'] = $tiempo_produccion;
-            $data['estado'] = 'COMPLETADA';
-        }
-
         // Creación de tarea
         $tarea = Tarea::create($data);
+
+        GenerarProduccionDeTareas::dispatch();
+
         return response()->json($tarea, 201);
     }
 
@@ -82,7 +72,6 @@ class TareaController extends Controller
      */
     public function update(Request $request, Tarea $tarea)
     {
-        $horasEmpleoValidas = new ValidarHorasEmpleo;
         // Validaciones
         if ($tarea->estado !== 'PENDIENTE') {
             return response()->json(['error' => 'La tarea ya ha sido completada'], 409);
@@ -97,20 +86,8 @@ class TareaController extends Controller
                 'date',
                 'after_or_equal:fecha_hora_inicio',
                 'before:now',
-                $horasEmpleoValidas,
+                new ValidarHorasEmpleo,
             ]
-        ]);
-
-        // Calculo de tiemplo_empleado y tiempo_produccion
-        $tiempo_empleado = $horasEmpleoValidas->getTiempoEmpleado();
-        $maquina = Maquina::findOrFail($tarea->id_maquina);
-        $tiempo_produccion = $tiempo_empleado * $maquina->coeficiente;
-
-        $tarea->update([
-            'fecha_hora_termino' => $validatedData['fecha_hora_termino'],
-            'tiempo_empleado' => $tiempo_empleado,
-            'tiempo_produccion' => $tiempo_produccion,
-            'estado' => 'COMPLETADA',
         ]);
 
         return response()->json($tarea, 200);
