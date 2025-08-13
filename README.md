@@ -12,3 +12,4 @@ php artisan db:seed
 - Como aplicar reglas personalizadas para validacion? Dame un ejemplo explicado paso a paso
 - Puede una regla devolver un valor calculado dentro de ella?
 - Explicame paso a paso como generar un job que verifique de la tabla tareas cuantos elementos cuya columna estado sea igual a 'PENDIENTE', la columna "id_produccion" sea nula y que las columnas fecha_hora_inicio y fecha_hora_termino sean no nulos. Si son mas de 5 que cree un elemento en la tabla produccion y realice modificaciones en los elementos de la tabla tareas correspondientes.
+- Como puedo obtener el siguiente dia habil de una fecha dada?
