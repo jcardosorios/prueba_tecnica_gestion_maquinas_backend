@@ -22,7 +22,7 @@ class ValidarHorasEmpleo implements ValidationRule
         $tiempoEmpleado = $inicio-> diffInMinutes($termino)/60;
 
         if ($tiempoEmpleado < 5 || $tiempoEmpleado > 120){
-            $fail('El tiempo empleado debe estar entre 5 y 120 horas');
+            $fail('El tiempo empleado debe estar entre 5 y 120 horas'.$tiempoEmpleado);
         }
     }
 

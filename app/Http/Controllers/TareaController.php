@@ -34,7 +34,6 @@ class TareaController extends Controller
                 'nullable',
                 'date',
                 'after_or_equal:fecha_hora_inicio',
-                'before:now',
                 new ValidarHorasEmpleo
             ],
         ]);
@@ -85,11 +84,11 @@ class TareaController extends Controller
                 'required',
                 'date',
                 'after_or_equal:fecha_hora_inicio',
-                'before:now',
                 new ValidarHorasEmpleo,
             ]
         ]);
 
+        $tarea->update($validatedData);
         return response()->json($tarea, 200);
 
     }

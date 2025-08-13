@@ -52,10 +52,14 @@ class GenerarProduccionDeTareas implements ShouldQueue
             ->where('id_maquina', $idsMaquinasConTareas[0])
             ->get();
         
+        $tiempoProduccionTotal = $tareas->sum('tiempo_produccion');
+
+        $ultimaTarea = $tareas->sortByDesc('fecha_hora_termino')->first();
+        $fechaHoraTerminoUltimaTarea = $ultimaTarea->fecha_hora_termino;
 
         // Crea elemento en tabla produccion
         $produccion = Produccion::create([
-            'tiempo_produccion' => 0,
+            'tiempo_produccion' => $tiempoProduccionTotal,
             'tiempo_inactividad' => 0,
             'fecha_hora_inicio_inactividad' => now(),
             'fecha_hora_termino_inactividad' => now(),

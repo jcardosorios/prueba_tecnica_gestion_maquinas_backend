@@ -7,6 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Maquina extends Model
 {
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'coeficiente' => 'float',
+    ];
+    
     use HasFactory;
 
     protected $fillable = [
