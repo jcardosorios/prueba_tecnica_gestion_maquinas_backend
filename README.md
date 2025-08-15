@@ -124,7 +124,7 @@ php artisan queue:listen
 
 #### 7\. Levantar el servidor frontend
 
-Volver a la carpeta de frontend y ejecutar servidor:
+En una nueva terminal, ir a la carpeta de frontend y ejecutar servidor:
 
 Bash
 
