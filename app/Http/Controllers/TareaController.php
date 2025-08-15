@@ -6,9 +6,8 @@ use App\Rules\ValidarHorasEmpleo;
 use App\Rules\TareaAnteriorFinalizada;
 use App\Jobs\GenerarProduccionDeTareas;
 use App\Models\Tarea;
-use App\Models\Maquina;
-use App\Models\Produccion;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class TareaController extends Controller
 {
