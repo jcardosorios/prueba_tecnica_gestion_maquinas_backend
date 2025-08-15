@@ -87,7 +87,24 @@ DB_PASSWORD=Contraseña de la base de datos
 SANCTUM_STATEFUL_DOMAINS=Host del frontend (Para nuestro entorno de desarrollo http://localhost:5173/)
 ```
 
-#### 4\. Ejecuta migraciones y seeders
+En el directorio de frontend, copia el archivo `.env.example` a un archivo `.env.local` y agrega las siguientes variables de entorno:
+
+.env.local
+
+```
+VITE_API_BASE_URL=Host del backend (Para nuestro entorno de desarrollo http://localhost:8000/)
+```
+
+#### 4\. Limpiar cache de configuraciones
+
+Modifica la zona horaria a utilizar en caso que se tenga una predefinida para el backend.
+
+Bash
+
+```
+php artisan config:clear
+```
+#### 5\. Ejecuta migraciones y seeders
 
 Genera tablas en la base de datos:
 
@@ -99,7 +116,7 @@ Bash
 php artisan migrate --seed
 ```
 
-#### 5\. Levantar el servidor backend
+#### 6\. Levantar el servidor backend
 
 Inicia el servidor local de Laravel:
 
@@ -111,7 +128,7 @@ php artisan serve
 
 El backend estará disponible en http://localhost:8000.
 
-#### 6\. Iniciar worker para escucha Jobs
+#### 7\. Iniciar worker para escucha Jobs
 
 En una nueva terminal, en la carpeta de backend ejecuta:
 
@@ -122,7 +139,7 @@ cd prueba_tecnica_gestion_maquinas_backend
 php artisan queue:listen
 ```
 
-#### 7\. Levantar el servidor frontend
+#### 8\. Levantar el servidor frontend
 
 En una nueva terminal, ir a la carpeta de frontend y ejecutar servidor:
 
