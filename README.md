@@ -49,8 +49,8 @@ Aplicacón web destinada a gestionar el ciclo de producción de máquinas indust
 Bash
 
 ```
-git clone git@github.com:jcardosorios/prueba_tecnica_gestion_maquinas_backend.git
-git clone git@github.com:jcardosorios/prueba_tecnica_gestion_maquinas_frontend.git
+git clone git@github.com:jcardosorios/prueba_tecnica_gestion_maquinas_backend.git backend
+git clone git@github.com:jcardosorios/prueba_tecnica_gestion_maquinas_frontend.git frontend
 ```
 
 
@@ -62,11 +62,11 @@ Bash
 
 ```
 # Backend
-cd prueba_tecnica_gestion_maquinas_backend
+cd backend
 composer install
 
 # Frontend
-cd prueba_tecnica_gestion_maquinas_frontend
+cd frontend
 npm install
 
 ```
@@ -92,7 +92,7 @@ En el directorio de frontend, copia el archivo `.env.example` a un archivo `.env
 .env.local
 
 ```
-VITE_API_BASE_URL=Host del backend (Para nuestro entorno de desarrollo http://localhost:8000/)
+VITE_API_BASE_URL=Host del backend (Para nuestro entorno de desarrollo http://localhost:8000/api)
 ```
 
 #### 4\. Limpiar cache de configuraciones
@@ -123,6 +123,7 @@ Inicia el servidor local de Laravel:
 Bash
 
 ```
+cd backend
 php artisan serve
 ```
 
@@ -135,7 +136,7 @@ En una nueva terminal, en la carpeta de backend ejecuta:
 Bash
 
 ```
-cd prueba_tecnica_gestion_maquinas_backend
+cd backend
 php artisan queue:listen
 ```
 
@@ -146,7 +147,7 @@ En una nueva terminal, ir a la carpeta de frontend y ejecutar servidor:
 Bash
 
 ```
-cd prueba_tecnica_gestion_maquinas_frontend
+cd frontend
 npm run dev
 ```
 
